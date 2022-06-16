@@ -15,7 +15,7 @@ public class CustomFilter implements GlobalFilter {
 
     @Override
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
-        if (exchange.getRequest().getPath().toString().contains("au th")) {
+        if (exchange.getRequest().getPath().toString().contains("auth")) {
             return chain.filter(exchange);
         } else {
             String jwt;
@@ -25,7 +25,7 @@ public class CustomFilter implements GlobalFilter {
                 throw new NullPointerException("Token not found");
             }
             return builder.build().get()
-                    .uri("http://localhost:8080/auth/token")
+                    .uri("http://:8080/auth/token")
                     .header("Authorization", jwt)
                     .retrieve()
                     .bodyToMono(Boolean.class)
