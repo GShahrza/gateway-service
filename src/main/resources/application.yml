@@ -1,0 +1,15 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: security
+          uri: http://localhost:8080
+          predicates:
+            - Path=/v1/**
+      filters:
+        - name: CustomFilter
+  application:
+    name: spring-cloud-gateway-service
+server:
+  port: 8888
+
